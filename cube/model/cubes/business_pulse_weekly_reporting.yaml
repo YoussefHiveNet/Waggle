@@ -1,0 +1,184 @@
+cubes:
+  - name: business_pulse_weekly_reporting
+    title: Business Pulse Weekly Reporting
+
+    sql_table: waggle_sandbox.business_pulse_weekly_reporting
+    data_source: default
+
+    joins: []
+
+    dimensions:
+      - name: reportingWeek
+        title: Reporting Week
+        sql: TIMESTAMP(reporting_week)
+        type: time
+
+
+    measures:
+      # ───────────────
+      # Registrations
+      # ───────────────
+      - name: newRegisteredAccounts
+        title: New Registered Accounts
+        sql: new_registered_accounts
+        type: sum
+
+      - name: newRegisteredAccountsBusinessEmail
+        title: New Registered Accounts (Business Email)
+        sql: new_registered_accounts_business_email
+        type: sum
+
+      - name: newPaidAccountsSelfServe
+        title: New Paid Accounts (Self-Serve)
+        sql: new_paid_accounts_self_serve
+        type: sum
+
+      # ───────────────
+      # Apple
+      # ───────────────
+      - name: appleNewPaidSubscriptions
+        title: Apple New Paid Subscriptions
+        sql: apple_new_paid_subscriptions
+        type: sum
+
+      - name: appleRenewals
+        title: Apple Renewals
+        sql: apple_renewals
+        type: sum
+
+      - name: appleCancellations
+        title: Apple Cancellations
+        sql: apple_cancellations
+        type: sum
+
+      # ───────────────
+      # Stripe Store
+      # ───────────────
+      - name: stripeStoreNewPaidSubscriptions
+        title: Stripe Store New Paid Subscriptions
+        sql: stripe_store_new_paid_subscriptions
+        type: sum
+
+      - name: stripeStoreChurnedSubscriptions
+        title: Stripe Store Churned Subscriptions
+        sql: stripe_store_churned_subscriptions
+        type: sum
+
+      - name: stripeStoreChurnedCustomers
+        title: Stripe Store Churned Customers
+        sql: stripe_store_churned_customers
+        type: sum
+
+      # ───────────────
+      # Revenue & Billing
+      # ───────────────
+      - name: creditsBilledSelfServeAmount
+        title: Credits Billed (Self-Serve)
+        sql: credits_billed_self_serve_amount
+        type: sum
+
+      - name: directSalesAmount
+        title: Direct Sales Amount
+        sql: direct_sales_amount
+        type: sum
+
+      - name: totalCreditsUsed
+        title: Total Credits Used
+        sql: total_credits_used
+        type: sum
+
+      # ───────────────
+      # Usage
+      # ───────────────
+      - name: gpuHoursConsumed
+        title: GPU Hours Consumed
+        sql: gpu_hours_consumed
+        type: sum
+
+      - name: cpuHoursConsumed
+        title: CPU Hours Consumed
+        sql: cpu_hours_consumed
+        type: sum
+
+      - name: gpuHoursConsumedPct
+        title: GPU Hours Consumed (%)
+        sql: gpu_hours_consumed_pct
+        type: number
+
+      - name: cpuHoursConsumedPct
+        title: CPU Hours Consumed (%)
+        sql: cpu_hours_consumed_pct
+        type: number
+
+      # ───────────────
+      # Earnings
+      # ───────────────
+      - name: vastaiTotalEarnings
+        title: Vast.ai Total Earnings
+        sql: vastai_total_earnings
+        type: sum
+
+      - name: vastaiTotalEarningsEur
+        title: Vast.ai Total Earnings (EUR)
+        sql: vastai_total_earnings_eur
+        type: sum
+
+      - name: runpodTotalEarnings
+        title: RunPod Total Earnings
+        sql: runpod_total_earnings
+        type: sum
+
+      - name: runpodTotalEarningsEur
+        title: RunPod Total Earnings (EUR)
+        sql: runpod_total_earnings_eur
+        type: sum
+
+      - name: totalDemandPartnersEarnings
+        title: Total Demand Partners Earnings
+        sql: total_demand_partners_earnings
+        type: sum
+
+      - name: totalDemandPartnersEarningsEur
+        title: Total Demand Partners Earnings (EUR)
+        sql: total_demand_partners_earnings_eur
+        type: sum
+
+      # ───────────────
+      # Previous Week (temporary, non-aggregated)
+      # ───────────────
+      - name: previousWeekNewRegisteredAccounts
+        title: Previous Week New Registered Accounts
+        sql: previous_week_new_registered_accounts
+        type: number
+
+      - name: previousWeekCreditsBilledSelfServeAmount
+        title: Previous Week Credits Billed (Self-Serve)
+        sql: previous_week_credits_billed_self_serve_amount
+        type: number
+
+      - name: previousWeekTotalCreditsUsed
+        title: Previous Week Total Credits Used
+        sql: previous_week_total_credits_used
+        type: number
+
+      - name: previousWeekVastaiTotalEarnings
+        title: Previous Week Vast.ai Total Earnings
+        sql: previous_week_vastai_total_earnings
+        type: number
+
+      - name: previousWeekVastaiTotalEarningsEur
+        title: Previous Week Vast.ai Total Earnings (EUR)
+        sql: previous_week_vastai_total_earnings_eur
+        type: number
+
+      - name: previousWeekRunpodTotalEarnings
+        title: Previous Week RunPod Total Earnings
+        sql: previous_week_runpod_total_earnings
+        type: number
+
+      - name: previousWeekRunpodTotalEarningsEur
+        title: Previous Week RunPod Total Earnings (EUR)
+        sql: previous_week_runpod_total_earnings_eur
+        type: number
+
+    pre_aggregations: []

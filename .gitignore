@@ -1,0 +1,24 @@
+# Secrets
+cube-bq-key.json
+*.json
+
+# Environment
+.env
+*.env
+
+# Node
+node_modules/
+
+# Logs
+*.log
+logs/
+
+# Python
+__pycache__/
+*.pyc
+
+# OS / System
+.DS_Store
+.bash_history
+.bashrc
+.profile
