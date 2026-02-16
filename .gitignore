@@ -22,3 +22,6 @@ __pycache__/
 .bash_history
 .bashrc
 .profile
+
+# Nginx SSL
+nginx/ssl/

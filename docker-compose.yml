@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  cube:
+    build: ./cube
+    restart: always
+    environment:
+      - CUBEJS_DB_TYPE=bigquery
+      - CUBEJS_DB_BQ_PROJECT_ID=${CUBEJS_DB_BQ_PROJECT_ID}
+      - CUBEJS_DB_BQ_DATASET=${CUBEJS_DB_BQ_DATASET}
+      - CUBEJS_API_SECRET=${CUBEJS_API_SECRET}
+      - CUBEJS_DEV_MODE=false
+    networks:
+      - hivenet-secure
+
+  mcp:
+    build: ./mcp
+    restart: always
+    environment:
+      - CUBE_URL=http://cube:4000/cubejs-api/v1
+      - CUBEJS_API_SECRET=${CUBEJS_API_SECRET}
+    depends_on:
+      - cube
+    networks:
+      - hivenet-secure
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - cube
+      - mcp
+    networks:
+      - hivenet-secure
+
+networks:
+  hivenet-secure:
+    driver: bridge

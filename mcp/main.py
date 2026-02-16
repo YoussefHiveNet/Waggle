@@ -1,11 +1,14 @@
 import logging
+import os
 from fastmcp import FastMCP
 from cube_client import CubeClient
 
 logging.basicConfig(level=logging.INFO)
 
-CUBE_URL = "http://cube:4000/cubejs-api/v1"
-cube = CubeClient(CUBE_URL)
+CUBE_URL = os.getenv("CUBE_URL", "http://cube:4000/cubejs-api/v1")
+CUBE_SECRET = os.getenv("CUBEJS_API_SECRET", "super-secret-change-later")
+
+cube = CubeClient(CUBE_URL, CUBE_SECRET)
 
 mcp = FastMCP(name="hivenet-analytics")
 

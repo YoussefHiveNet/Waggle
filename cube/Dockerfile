@@ -1,8 +1,7 @@
-FROM node:20-slim
+FROM node:22-alpine
 
 WORKDIR /cube
 
-# Install Cube CLI globally (this is the missing piece)
 RUN npm install -g cubejs-cli
 
 COPY package.json ./
@@ -10,7 +9,6 @@ RUN npm install
 
 COPY . .
 
-ENV NODE_ENV=production
 EXPOSE 4000
 
-CMD ["cubejs", "server"]
+CMD ["npx", "cubejs", "server"]
