@@ -10,8 +10,10 @@ cubes:
     dimensions:
       - name: reportingWeek
         title: Reporting Week
+        description: "The start date of the weekly reporting period."
         sql: TIMESTAMP(reporting_week)
         type: time
+        primary_key: true
 
 
     measures:
@@ -20,165 +22,230 @@ cubes:
       # ───────────────
       - name: newRegisteredAccounts
         title: New Registered Accounts
+        description: "Total count of new user accounts created during the reporting week."
         sql: new_registered_accounts
         type: sum
+        format: number
 
       - name: newRegisteredAccountsBusinessEmail
         title: New Registered Accounts (Business Email)
+        description: "Count of new accounts registered using a business email domain."
         sql: new_registered_accounts_business_email
         type: sum
+        format: number
 
       - name: newPaidAccountsSelfServe
         title: New Paid Accounts (Self-Serve)
+        description: "Count of new self-serve accounts that converted to a paid tier recorded this week."
         sql: new_paid_accounts_self_serve
         type: sum
+        format: number
 
       # ───────────────
       # Apple
       # ───────────────
       - name: appleNewPaidSubscriptions
         title: Apple New Paid Subscriptions
+        description: "Total new paid subscriptions acquired via the Apple App Store."
         sql: apple_new_paid_subscriptions
         type: sum
+        format: number
 
       - name: appleRenewals
         title: Apple Renewals
+        description: "Successful subscription renewals processed through the Apple App Store."
         sql: apple_renewals
         type: sum
+        format: number
 
       - name: appleCancellations
         title: Apple Cancellations
+        description: "Subscription cancellations processed via the Apple App Store."
         sql: apple_cancellations
         type: sum
+        format: number
 
       # ───────────────
       # Stripe Store
       # ───────────────
       - name: stripeStoreNewPaidSubscriptions
         title: Stripe Store New Paid Subscriptions
+        description: "Total new paid subscriptions initiated through the Stripe store."
         sql: stripe_store_new_paid_subscriptions
         type: sum
+        format: number
 
       - name: stripeStoreChurnedSubscriptions
         title: Stripe Store Churned Subscriptions
+        description: "Count of subscriptions that ended or were cancelled via Stripe during the week."
         sql: stripe_store_churned_subscriptions
         type: sum
+        format: number
 
       - name: stripeStoreChurnedCustomers
         title: Stripe Store Churned Customers
+        description: "Total number of unique customers who churned via Stripe."
         sql: stripe_store_churned_customers
         type: sum
+        format: number
 
       # ───────────────
       # Revenue & Billing
       # ───────────────
       - name: creditsBilledSelfServeAmount
         title: Credits Billed (Self-Serve)
+        description: "Total dollar amount billed for credits to self-serve customers."
         sql: credits_billed_self_serve_amount
         type: sum
+        format: currency
 
       - name: directSalesAmount
         title: Direct Sales Amount
+        description: "Total dollar amount generated from direct/enterprise sales contracts."
         sql: direct_sales_amount
         type: sum
+        format: currency
 
       - name: totalCreditsUsed
         title: Total Credits Used
+        description: "Volume of usage credits consumed by all accounts across the platform."
         sql: total_credits_used
         type: sum
+        format: number
 
       # ───────────────
       # Usage
       # ───────────────
       - name: gpuHoursConsumed
         title: GPU Hours Consumed
+        description: "Total number of GPU hours utilized across all nodes in the reporting period."
         sql: gpu_hours_consumed
         type: sum
+        format: number
 
       - name: cpuHoursConsumed
         title: CPU Hours Consumed
+        description: "Total number of CPU hours utilized across all nodes in the reporting period."
         sql: cpu_hours_consumed
         type: sum
+        format: number
 
       - name: gpuHoursConsumedPct
         title: GPU Hours Consumed (%)
+        description: "GPU utilization rate relative to available capacity."
         sql: gpu_hours_consumed_pct
         type: number
+        format: percent
 
       - name: cpuHoursConsumedPct
         title: CPU Hours Consumed (%)
+        description: "CPU utilization rate relative to available capacity."
         sql: cpu_hours_consumed_pct
         type: number
+        format: percent
 
       # ───────────────
       # Earnings
       # ───────────────
       - name: vastaiTotalEarnings
         title: Vast.ai Total Earnings
+        description: "Total earnings generated through the Vast.ai partnership."
         sql: vastai_total_earnings
         type: sum
+        format: currency
 
       - name: vastaiTotalEarningsEur
         title: Vast.ai Total Earnings (EUR)
+        description: "Total earnings from Vast.ai partnership, converted to EUR."
         sql: vastai_total_earnings_eur
         type: sum
+        format: currency
 
       - name: runpodTotalEarnings
         title: RunPod Total Earnings
+        description: "Total earnings generated through the RunPod partnership."
         sql: runpod_total_earnings
         type: sum
+        format: currency
 
       - name: runpodTotalEarningsEur
         title: RunPod Total Earnings (EUR)
+        description: "Total earnings from RunPod partnership, converted to EUR."
         sql: runpod_total_earnings_eur
         type: sum
+        format: currency
 
       - name: totalDemandPartnersEarnings
         title: Total Demand Partners Earnings
-        sql: total_demand_partners_earnings
+        description: "Consolidated total earnings from all external demand partners (Vast.ai + RunPod)."
+        sql: vastai_total_earnings + runpod_total_earnings
         type: sum
+        format: currency
 
       - name: totalDemandPartnersEarningsEur
         title: Total Demand Partners Earnings (EUR)
-        sql: total_demand_partners_earnings_eur
+        description: "Consolidated total earnings from all demand partners (Vast.ai + RunPod) in EUR."
+        sql: vastai_total_earnings_eur + runpod_total_earnings_eur
         type: sum
+        format: currency
+
+      - name: totalRevenue
+        title: Total Revenue
+        description: "Aggregate weekly revenue including Direct Sales, Self-Serve Credits, and Demand Partners."
+        sql: direct_sales_amount + credits_billed_self_serve_amount + vastai_total_earnings + runpod_total_earnings
+        type: sum
+        format: currency
 
       # ───────────────
       # Previous Week (temporary, non-aggregated)
       # ───────────────
       - name: previousWeekNewRegisteredAccounts
         title: Previous Week New Registered Accounts
+        description: "Count of new registered accounts from the previous reporting week for comparison."
         sql: previous_week_new_registered_accounts
         type: number
+        format: number
 
       - name: previousWeekCreditsBilledSelfServeAmount
         title: Previous Week Credits Billed (Self-Serve)
+        description: "Credits billed to self-serve customers in the previous week."
         sql: previous_week_credits_billed_self_serve_amount
         type: number
+        format: currency
 
       - name: previousWeekTotalCreditsUsed
         title: Previous Week Total Credits Used
+        description: "Volume of credits consumed in the previous week."
         sql: previous_week_total_credits_used
         type: number
+        format: number
 
       - name: previousWeekVastaiTotalEarnings
         title: Previous Week Vast.ai Total Earnings
+        description: "Total Vast.ai earnings from the previous week."
         sql: previous_week_vastai_total_earnings
         type: number
+        format: currency
 
       - name: previousWeekVastaiTotalEarningsEur
         title: Previous Week Vast.ai Total Earnings (EUR)
+        description: "Vast.ai earnings from the previous week in EUR."
         sql: previous_week_vastai_total_earnings_eur
         type: number
+        format: currency
 
       - name: previousWeekRunpodTotalEarnings
         title: Previous Week RunPod Total Earnings
+        description: "Total RunPod earnings from the previous week."
         sql: previous_week_runpod_total_earnings
         type: number
+        format: currency
 
       - name: previousWeekRunpodTotalEarningsEur
         title: Previous Week RunPod Total Earnings (EUR)
+        description: "RunPod earnings from the previous week in EUR."
         sql: previous_week_runpod_total_earnings_eur
         type: number
+        format: currency
 
     pre_aggregations: []
